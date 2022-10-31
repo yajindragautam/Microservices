@@ -54,6 +54,40 @@ Cons Of Using SYNC
 ![image](https://user-images.githubusercontent.com/58351637/198955085-1348b60d-9727-4975-abf3-a3c2c391e8e7.png)
 
 
-- ASYBC <br>
+- ASYNC <br>
 These words do't mean what they mean in the Javascript World.
 ![image](https://user-images.githubusercontent.com/58351637/198952957-1940cfe0-6832-4c63-86fe-5d29b50ca53e.png)
+
+- NOT THE BEST WAY 
+![image](https://user-images.githubusercontent.com/58351637/198958904-d75d1bf2-c347-4faf-b56f-48e42b24dc03.png)
+
+In this aproach Service D emmit an event to get `product order by a particular user`. This event hit an event Bus. Event bust create a copy to it and request to Server A to get user id of 1. Service A again emmit an event with data of requested user and send it back to Event Bus. Then event bus send that data to Service D and this process keep runing until final result comes. But this approach is not the best. It hace a lot of cons which is described below.
+
+### PROS AND CONS OF THIS APPROACH
+![image](https://user-images.githubusercontent.com/58351637/198960091-c1aab8b0-15cf-4196-8c44-df6b103b9662.png)
+
+### BEST ASYNC APPROACH
+![image](https://user-images.githubusercontent.com/58351637/198960650-147b4fdb-86e0-44a7-88e4-5bd71e7353e9.png)
+
+### let's Refine the exact goal of this service.
+![image](https://user-images.githubusercontent.com/58351637/198965182-4ba08b33-d917-4f17-9b68-9ae6a42d6ef3.png)
+
+### After Refined
+![image](https://user-images.githubusercontent.com/58351637/198965424-d7ce2504-bbb6-4761-abd2-e1b8282082fd.png)
+
+For this we have to create a seperate database whih required data.
+
+![image](https://user-images.githubusercontent.com/58351637/198965774-ee8c9e94-b871-4f8c-aad5-28a8be6d2074.png)
+
+### How this approach works
+![image](https://user-images.githubusercontent.com/58351637/198967187-b5504593-9d84-4455-8e8d-7bedbf490d96.png)
+
+- When request to create a new product comes. Service B (prodict service ) create a prodict and emmit and event to an Event Bus where Event Bus take that data and create send it to Service D. Then service D store only required data like as `id, name, image` and store it in it' Product Databse.
+
+- When new user is created and this perocess again repeats. 
+
+- Now Service D have both `product` and `user` data. Which maekes it independance.
+
+## Pros and Cons Of this method
+![image](https://user-images.githubusercontent.com/58351637/198969004-1ef1ccdb-3420-4e80-9a79-4b64a1d4da0f.png)
+
